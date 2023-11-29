@@ -1,0 +1,115 @@
+
+
+.register-username-frame {
+    position: absolute;
+    left: calc(50% - 150px);
+    top: calc(50% - 200px);
+}
+
+
+.register-username {
+    width: 300px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.register-username:focus {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 1);
+}
+
+.register-email-frame {
+    position: absolute;
+    left: calc(50% - 150px);
+    top: calc(50% - 150px);
+}
+
+.register-email {
+    width: 300px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.register-email:focus {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 1);
+}
+
+
+.register-password-frame {
+    position: absolute;
+    left: calc(50% - 150px);
+    top: calc(50% - 100px);
+}
+
+.register-password {
+    width: 300px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.register-password:focus {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 1);
+}
+
+
+.register-password-confirm-frame {
+    position: absolute;
+    left: calc(50% - 150px);
+    top: calc(50% - 50px);
+}
+
+.register-password-confirm {
+    width: 300px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.register-password-confirm:focus {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 1);
+}
+
+
+.register-error {
+    width: 300px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 1);
+}
+
+.error-username {
+    position: absolute;
+    left: calc(50% + 170px);
+    top: calc(50% - 200px);
+}
+
+.error-email {
+    position: absolute;
+    left: calc(50% + 170px);
+    top: calc(50% - 150px);
+}
+
+.error-password {
+    position: absolute;
+    left: calc(50% + 170px);
+    top: calc(50% - 100px);
+}
+
+.error-message {
+    color: red;
+    font-size: 16px;
+}
+
+
+.register-submit-frame {
+    position: absolute;
+    left: calc(50% - 75px);
+    top: calc(50% + 25px);
+}
+
+.register-submit {
+    width: 150px;
+    border-radius: 10px;
+}
+
+.register-submit:hover {
+    box-shadow: 0 0 30px rgba(0, 200, 0, 1);
+}
