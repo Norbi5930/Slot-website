@@ -13,7 +13,7 @@
       data-bs-theme="dark"
     >
       <div class="container-fluid">
-        <a class="navbar-brand" href="">Slot</a>
+        <a class="navbar-brand" href="{{ url_for('home') }}">Slot</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -44,12 +44,25 @@
             </li>
           </ul>
           <div class="d-flex">
-            <a class="btn btn-outline-secondary" href="{{ url_for('register') }}">
-              Regisztráció
-            </a>
-            <a class="btn btn-secondary ms-3" href="">
-              Bejelentkezés
-            </a>
+            {% if not current_user.is_authenticated %}
+              <a class="btn btn-outline-secondary" href="{{ url_for('register') }}">
+                Regisztráció
+              </a>
+              <a class="btn btn-secondary ms-3" href="{{ url_for('login')}}">
+                Bejelentkezés
+              </a>
+            {% else %}
+              <li class="nav-item dropdown">
+                <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="{{ url_for('static', filename='profile.jpg') }}" alt="profile-picture">
+                </a>
+                <ul class="dropdown-menu" style="transform: translateX(calc(100% - 250px));">
+                  <li><a class="dropdown-item" href="">Profil</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('settings')}}">Beállítások</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('logout') }}">Kijelentkezés</a></li>
+                </ul>
+              </li>
+            {% endif %}
           </div>
         </div>
       </div>

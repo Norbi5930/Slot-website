@@ -3,8 +3,21 @@
 
 
 {% block content %}
+    <img src="{{ url_for('static', filename='background.gif') }}" alt="background" id="login_background">
+    <h2 class="login-title">Bejelentkező felület</h2>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
 
-
+        <div class="login-username-frame">
+            {{ form.username(class="login-username") }}
+        </div>
+        <div class="login-password-frame">
+            {{ form.password(class="login-password") }}
+        </div>
+        <div class="login-submit-frame">
+            {{ form.submit(class="login-submit") }}
+        </div>
+    </form>
 
 
 {% endblock content %}

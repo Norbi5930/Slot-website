@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, EmailField, SubmitField
 from wtforms.validators import Length, Email, EqualTo, InputRequired, ValidationError
 
+from slot import bcrypt
 from slot.models import User
 
 class RegisterForm(FlaskForm):
@@ -26,9 +27,7 @@ class RegisterForm(FlaskForm):
 
         if email:
             raise ValidationError(message="Az E-mail cím már foglalt!")
-        
-        if len(email.data) <= 0:
-            raise ValidationError(message="Ez a mező kitöltése kötelező!")
+    
     
     def validate_password(self, password):
 
@@ -37,3 +36,17 @@ class RegisterForm(FlaskForm):
         elif len(password.data) < 8:
             raise ValidationError(message="A jelszónak legalább 8 karakternek kell lennie!")
         
+
+
+class LoginForm(FlaskForm):
+    username = StringField(render_kw={"placeholder": "Felhasználónév"}, validators=[InputRequired()])
+    password = PasswordField(render_kw={"placeholder": "Jelszó"}, validators=[InputRequired()])
+    submit = SubmitField("Bejelentkezés")
+
+
+
+class PasswordChange(FlaskForm):
+    old_password = PasswordField(render_kw={"placeholder": "Régi jelszó"}, validators=[InputRequired()])
+    new_password = PasswordField(render_kw={"placeholder": "Új jelszó"}, validators=[InputRequired(), Length(min=8)])
+    new_password_confirm = PasswordField(render_kw={"placeholder": "Új jelszó újra"}, validators=[InputRequired(), Length(min=8)])
+    submit = SubmitField("Megváltoztatás")

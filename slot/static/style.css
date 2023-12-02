@@ -6,6 +6,21 @@
     top: calc(50% - 200px);
 }
 
+#register_background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    user-select: none;
+}
+
+.register-title {
+    position: absolute;
+    left: calc(50% - 140px);
+    color: white;
+}
 
 .register-username {
     width: 300px;
@@ -112,4 +127,181 @@
 
 .register-submit:hover {
     box-shadow: 0 0 30px rgba(0, 200, 0, 1);
+}
+
+.register-submit:active {
+    margin-top: 3px;
+}
+
+
+#login_background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    user-select: none;
+}
+
+.login-title {
+    position: absolute;
+    left: calc(50% - 140px);
+    text-align: center;
+    color: white;
+}
+
+.login-username-frame {
+    position: absolute;
+    left: calc(50% - 150px);
+    top: calc(50% - 200px);
+}
+
+.login-username {
+    width: 300px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.login-username:focus {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 1);
+
+}
+
+.login-password-frame {
+    position: absolute;
+    left: calc(50% - 150px);
+    top: calc(50% - 150px);
+}
+
+.login-password {
+    width: 300px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.login-password:focus {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 1);
+}
+
+.login-submit-frame {
+    position: absolute;
+    left: calc(50% - 75px);
+    top: calc(50% - 100px);
+}
+
+.login-submit {
+    width: 150px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.login-submit:hover {
+    box-shadow: 0 0 30px rgba(0, 200, 0, 1);
+}
+
+.login-submit:active {
+    margin-top: 3px;
+}
+
+#settings_background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    user-select: none;
+}
+
+.settings-title {
+    position: absolute;
+    left: calc(50% - 150px);
+    color: white;
+}
+
+.settings-password-change-frame {
+    position: absolute;
+    width: 75%;
+    height: 10%;
+    top: 20%;
+    left: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.settings-password-change-text {
+    position: absolute;
+    color: white;
+    font-size: 24px;
+}
+
+.settings-password-change-old {
+    position: absolute;
+    font-size: 20px;
+    width: 200px;
+    border-radius: 5px;
+    left: 15%;
+}
+
+.settings-password-change-old:focus {
+    box-shadow: 0 0 50px rgba(0, 0, 0, 1);
+}
+
+.settings-password-change-new {
+    position: absolute;
+    font-size: 20px;
+    width: 200px;
+    border-radius: 5px;
+    left: 40%;
+}
+
+.settings-password-change-new:focus {
+    box-shadow: 0 0 50px rgba(0, 0, 0, 1);
+}
+
+.settings-password-change-confirm {
+    position: absolute;
+    font-size: 20px;
+    width: 200px;
+    border-radius: 5px;
+    left: 65%;
+}
+
+.settings-password-change-confirm:focus {
+    box-shadow: 0 0 50px rgba(0, 0, 0, 1);
+}
+
+.settings-password-change-confirm-error {
+    position: absolute;
+    font-size: 20px;
+    width: 200px;
+    border-radius: 5px;
+    left: 65%;
+    box-shadow: 0 0 50px rgba(255, 0, 0, 1);
+}
+
+.settings-password-confirm-error {
+    position: absolute;
+    left: 65%;
+    transform: translateY(50px);
+    
+}
+
+.settings-password-change-submit {
+    position: absolute;
+    font-size: 20px;
+    width: 200px;
+    border-radius: 5px;
+    left: 85%;
+}
+
+.settings-password-change-submit:hover {
+    background-color: #79827b;
+    box-shadow: 0 0 50px rgba(0, 200, 0, 1);
+}
+
+.settings-password-change-submit:active {
+    margin-top: 3px;
 }

@@ -1,0 +1,36 @@
+<body style="background-color: darkslategrey;">
+    
+
+{% extends "index.html" %}
+
+
+
+
+{% block content %}
+    <h2 class="settings-title">Beállítások</h2>
+
+    <form action="password_change/{{ current_user.user_id }}" method="post">
+        {{ form.hidden_tag() }}
+        <div class="settings-password-change-frame">
+            <div class="settings-password-change-text">Jelszó váltás</div>
+            {{ form.old_password(class="settings-password-change-old") }}
+            {{ form.new_password(class="settings-password-change-new") }}
+            {% if form.new_password_confirm.errors %}
+                {{ form.new_password_confirm(class="settings-password-change-confirm-error") }}
+
+                <div class="settings-password-confirm-error">
+                    {% for error in form.new_password_confirm.errors %}
+                        <span class="error-message">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.new_password_confirm(class="settings-password-change-confirm") }}
+            {% endif %}
+            {{ form.submit(class="settings-password-change-submit") }}
+        </div>
+
+    </form>
+
+
+{% endblock content %}
+</body>

@@ -1,7 +1,8 @@
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, abort
+from flask_login import login_user, logout_user, current_user, login_required
 
 from slot import app, db, bcrypt
-from slot.forms import RegisterForm
+from slot.forms import RegisterForm, LoginForm, PasswordChange
 from slot.models import User
 
 
@@ -21,7 +22,7 @@ def register():
 
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password, balance=0)
         db.session.add(user)
         db.session.commit()
         flash("Sikeres regisztráció!", "success")
@@ -29,3 +30,63 @@ def register():
 
     return render_template("register.html", title="Regisztráció", form=form)
 
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    form = LoginForm()
+    if current_user.is_authenticated:
+        return redirect(url_for("home"))
+
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, False)
+            flash("Sikeres bejelentkezés!", "success")
+            return redirect(url_for("home"))
+        else:
+            flash("Sikertelen bejelentkezés! Rossz felhasználónév vagy jelszó!", "danger")
+            return redirect(url_for("login"))
+
+    return render_template("login.html", title="Bejelentkezés", form=form)
+
+
+@app.route("/settings", methods=["GET", "POST"])
+@login_required
+def settings():
+    form = PasswordChange()
+
+    return render_template("settings.html", title="Beállítások", form=form)
+
+
+@app.route("/password_change/<int:id>", methods=["GET", "POST"])
+@login_required
+def password_change(id):
+    form = PasswordChange()
+
+    if form.validate_on_submit():
+        user = User.query.get_or_404(id)
+        if user.username  == current_user.username:
+            if form.new_password.data == form.new_password_confirm.data:
+                if bcrypt.check_password_hash(user.password, form.old_password.data):
+                    new_password = bcrypt.generate_password_hash(form.new_password.data)
+                    user.password = new_password
+                    db.session.commit()
+                    flash("Sikeres jelszóváltás!", "success")
+                else:
+                    flash("A régi jelszó nem egyezik!", "danger")
+            else:
+                flash("A két új jelszó nem egyezik meg egymással!", "danger")
+        else:
+            abort(403)
+        return redirect(url_for("settings"))
+    return redirect(url_for("settings"))
+
+
+
+@app.route("/logout", methods=["GET", "POST"])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("home"))
