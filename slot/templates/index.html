@@ -52,12 +52,17 @@
                 Bejelentkezés
               </a>
             {% else %}
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('profile', id=current_user.user_id) }}" style="font-size: 22px; font-family: cursive; user-select: none;">{{ current_user.balance }}$</a>
+                </li>
+              </ul>
               <li class="nav-item dropdown">
                 <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="{{ url_for('static', filename='profile.jpg') }}" alt="profile-picture">
+                  <img src="{{ url_for('static', filename='profile.jpg') }}" alt="profile-picture" style="user-select: none;">
                 </a>
                 <ul class="dropdown-menu" style="transform: translateX(calc(100% - 250px));">
-                  <li><a class="dropdown-item" href="">Profil</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('profile', id=current_user.user_id) }}">Profil</a></li>
                   <li><a class="dropdown-item" href="{{ url_for('settings')}}">Beállítások</a></li>
                   <li><a class="dropdown-item" href="{{ url_for('logout') }}">Kijelentkezés</a></li>
                 </ul>
@@ -94,6 +99,10 @@
           {% endfor%}
         {% endif %}
       {% endwith %}
+
+    {% block background %}
+      <img src="{{ url_for('static', filename='main-background.png') }}" alt="background" id="main_background">
+    {% endblock background %}
     
 
     {% block content %}

@@ -1,4 +1,12 @@
-
+#main_background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    user-select: none;
+}
 
 .register-username-frame {
     position: absolute;
@@ -126,7 +134,7 @@
 }
 
 .register-submit:hover {
-    box-shadow: 0 0 30px rgba(0, 200, 0, 1);
+    box-shadow: 0 0 50px rgb(0, 200, 0);
 }
 
 .register-submit:active {
@@ -304,4 +312,134 @@
 
 .settings-password-change-submit:active {
     margin-top: 3px;
+}
+
+
+.profile-title {
+    position: absolute;
+    background-color: #33322d;
+    width: 100%;
+    height: 50px;
+    color: white;
+    text-align: start;
+}
+
+
+.balance-block {
+    position: absolute;
+    display: block;
+    width: 300px;
+    height: 200px;
+    background-color: #a19985;
+    top: 150px;
+    left: 150px;
+    border-radius: 10px;
+}
+
+.balance-title {
+    position: absolute;
+    font-size: 26px;
+    left: 30%;
+}
+
+.balance-balance {
+    position: absolute;
+    font-size: 28px;
+    font-family: cursive;
+    top: 20%;
+    left: 45%;
+}
+
+.balance-upload-button {
+    position: absolute;
+    bottom: 10%;
+    left: calc(20% - 10px);
+    background-color: green;
+    color: white;
+    font-size: 28px;
+    user-select: none;
+    text-decoration: none;
+    border-radius: 5px;
+    width: 200px;
+    text-align: center;
+}
+
+.balance-upload-button:hover {
+    background-color: #0d910f;
+}
+
+.balance-upload-button:active {
+    margin-left: 3px;
+}
+
+.upload-title {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: wheat;
+}
+
+.upload-frame {
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    border-radius: 20px;
+    left: calc(50% - 300px);
+    top: calc(50% - 300px);
+}
+
+.upload-email-frame {
+    position: absolute;
+    top: 25%;
+    left: 20%;
+}
+
+.upload-email {
+    font-size: 22px;
+    width: 350px;
+    border-radius: 10px;
+}
+
+.upload-cardnumber-frame {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+}
+
+.upload-cardnumber {
+    font-size: 22px;
+    width: 250px;
+    border-radius: 10px;
+}
+
+.upload-cvc-frame {
+    position: absolute;
+    top: 50%;
+    left: calc(60% + 10px);
+}
+
+.upload-cvc {
+    font-size: 22px;
+    width: 100px;
+    border-radius: 10px;
+}
+
+.upload-submit-frame {
+    position: absolute;
+    top: 75%;
+    left: 25%;
+}
+
+.upload-submit {
+    font-size: 22px;
+    width: 300px;
+    border-radius: 10px;
+}
+
+.upload-submit:focus {
+    box-shadow: 0 0 50px rgba(0, 200, 0, 1);
+}
+
+.upload-submit:active {
+    margin-left: 3px;
 }

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, EmailField, SubmitField
+from wtforms import StringField, PasswordField, EmailField, SubmitField, IntegerField
 from wtforms.validators import Length, Email, EqualTo, InputRequired, ValidationError
 
 from slot import bcrypt
@@ -50,3 +50,10 @@ class PasswordChange(FlaskForm):
     new_password = PasswordField(render_kw={"placeholder": "Új jelszó"}, validators=[InputRequired(), Length(min=8)])
     new_password_confirm = PasswordField(render_kw={"placeholder": "Új jelszó újra"}, validators=[InputRequired(), Length(min=8)])
     submit = SubmitField("Megváltoztatás")
+
+
+class UploadForm(FlaskForm):
+    email = EmailField(render_kw={"placeholder": "E-mail"}, validators=[InputRequired(), Email()])
+    card_number = StringField(render_kw={"placeholder": "Kártyaszám"}, validators=[InputRequired()])
+    cvc_code = IntegerField(render_kw={"placeholder": "CVC"}, validators=[InputRequired()])
+    submit = SubmitField("Feltöltés")
