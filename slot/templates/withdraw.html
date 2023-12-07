@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+
+
+
+
+{% block content %}
+    <form class="upload-frame" action="" method="post">
+        {{ form.hidden_tag() }}
+        <h2 class="upload-title">Kifizetés</h2>
+        <div class="upload-email-frame">
+            {{ form.email(class="upload-email") }}
+        </div>
+        <div class="upload-cardnumber-frame">
+            {{ form.card_number(class="upload-cardnumber") }}
+        </div>
+        <div class="upload-cvc-frame">
+            {{ form.cvc_code(class="upload-cvc") }}
+        </div>
+        <div class="upload-submit-frame">
+            {{ form.submit(class="upload-submit") }}
+        </div>
+    </form>
+{% endblock content %}

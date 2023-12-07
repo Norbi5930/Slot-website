@@ -2,9 +2,10 @@ from flask import render_template, redirect, url_for, flash, abort, request
 from flask_login import login_user, logout_user, current_user, login_required
 
 from slot import app, db, bcrypt
-from slot.forms import RegisterForm, LoginForm, PasswordChange, UploadForm
+from slot.forms import RegisterForm, LoginForm, PasswordChange, UploadForm, WithdrawForm
 from slot.models import User
 from .api_request import make_deposit, make_withdrawal
+from .emial import SuccessRegistration
 
 
 with app.app_context():
@@ -26,6 +27,7 @@ def register():
         user = User(username=form.username.data, email=form.email.data, password=hashed_password, balance=50)
         db.session.add(user)
         db.session.commit()
+        SuccessRegistration(form.username.data, form.email.data).send_mail()
         flash("Sikeres regisztráció!", "success")
         return redirect(url_for("home"))
 
@@ -108,15 +110,31 @@ def upload(money):
             current_user.balance += money
             db.session.commit()
             flash("Sikeres tranzakció!", "success")
-            return redirect(url_for("profile", id=current_user.user_id))
         else:
             flash("Sikertelen tranzakció!", "danger")
-            return redirect(url_for("profile", id=current_user.user_id))
+        return redirect(url_for("profile", id=current_user.user_id))
     
 
 
 
     return render_template("upload.html", title="Feltöltés", form=form)
+
+@app.route("/withdraw/money=<int:money>", methods=["GET", "POST"])
+def withdraw(money):
+    form = WithdrawForm()
+
+    if form.validate_on_submit():
+        card_number = form.card_number.data.replace("-", "")
+        money_to_withdraw = money
+        if make_withdrawal(card_number, form.cvc_code.data, money_to_withdraw):
+            current_user.balance -= money
+            db.session.commit()
+            flash("Sikeres tranzakció!", "success")
+        else:
+            flash("Sikertelen tranzakció!", "danger")
+        return redirect(url_for("profile", id=current_user.user_id))
+    
+    return render_template("withdraw.html", title="Kifizetés", form=form)
 
 
 

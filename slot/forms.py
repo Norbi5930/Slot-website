@@ -57,3 +57,10 @@ class UploadForm(FlaskForm):
     card_number = StringField(render_kw={"placeholder": "Kártyaszám"}, validators=[InputRequired()])
     cvc_code = IntegerField(render_kw={"placeholder": "CVC"}, validators=[InputRequired()])
     submit = SubmitField("Feltöltés")
+
+
+class WithdrawForm(FlaskForm):
+    email = EmailField(render_kw={"placeholder": "Email"}, validators=[InputRequired(), Email()])
+    card_number = StringField(render_kw={"placeholder": "Kártyaszám"}, validators=[InputRequired()])
+    cvc_code = IntegerField(render_kw={"placeholder": "CVC"})
+    submit = SubmitField("Kifizetés")
