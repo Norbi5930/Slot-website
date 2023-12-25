@@ -4,7 +4,10 @@ import requests
 def make_deposit(card_number, cvc_code, amount):
     api_url = "http://127.0.0.1:5001/api/bank/deposit/" + str(card_number)
     data = {"money": amount, "cvc_code": cvc_code}
-    response = requests.post(api_url, data=data)
+    try:
+        response = requests.post(api_url, data=data)
+    except:
+        return False
 
     if response.status_code == 200:
         data = response.json()
@@ -22,7 +25,10 @@ def make_deposit(card_number, cvc_code, amount):
 def make_withdrawal(card_number, cvc_code, amount):
     api_url = "http://127.0.0.1:5001/api/bank/withdraw/" + str(card_number)
     data = {"money": amount, "cvc_code": cvc_code}
-    response = requests.post(api_url, data=data)
+    try:
+        response = requests.post(api_url, data=data)
+    except:
+        return False
     
     if response.status_code == 200:
         data = response.json()

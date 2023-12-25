@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, flash, abort, request
 from flask_login import login_user, logout_user, current_user, login_required
 
 from slot import app, db, bcrypt
-from slot.forms import RegisterForm, LoginForm, PasswordChange, UploadForm, WithdrawForm
+from slot.forms import RegisterForm, LoginForm, PasswordChange, UploadForm, WithdrawForm, RouletteForm
 from slot.models import User
 from .api_request import make_deposit, make_withdrawal
 from .emial import SuccessRegistration
@@ -42,6 +42,7 @@ def login():
         return redirect(url_for("home"))
 
     if form.validate_on_submit():
+        username = form.username.data
         user = User.query.filter_by(username=form.username.data).first()
 
         if user and bcrypt.check_password_hash(user.password, form.password.data):
@@ -89,9 +90,8 @@ def password_change(id):
     return redirect(url_for("settings"))
 
 
-@app.route("/profile/<int:id>", methods=["GET", "POST"])
-def profile(id):
-    user = User.query.get_or_404(id)
+@app.route("/profile", methods=["GET", "POST"])
+def profile():
 
 
 
@@ -126,7 +126,7 @@ def withdraw(money):
     if form.validate_on_submit():
         card_number = form.card_number.data.replace("-", "")
         money_to_withdraw = money
-        if make_withdrawal(card_number, form.cvc_code.data, money_to_withdraw):
+        if make_withdrawal(card_number, form.cvc_code.data, money_to_withdraw) and current_user.balance >= money_to_withdraw:
             current_user.balance -= money
             db.session.commit()
             flash("Sikeres tranzakció!", "success")
@@ -138,12 +138,19 @@ def withdraw(money):
 
 
 
+@app.route("/roulette", methods=["GET", "POST"])
+def roulette():
+    form = RouletteForm()
+    return render_template("roulette.html", title="Roulette", form=form)
+
+
+
 @app.errorhandler(404)
 def error_page(error):
     status_code = getattr(error, "code", 500)
 
     if status_code == 404:
-        flash("Valami hiba lépett fel a művelet közben!", "danger")
+        flash("Valami hiba lépett fel a művelet közben!", "warning")
         return redirect(url_for("home"))
 
 

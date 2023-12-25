@@ -1,0 +1,96 @@
+{% extends "index.html" %}
+
+
+
+{% block background %}
+    <img src="{{ url_for('static', filename='roulette_img/roulette_background.png') }}" alt="background" id="roulette-background" style="position: fixed; z-index: -1; user-select: none;" draggable="false">
+{% endblock background %}
+
+{% block content %}
+    
+    {{ form.hidden_tag() }}
+      <div class="roulette-table">
+        <img src="{{ url_for('static', filename='roulette_img/roulette_wheel.png') }}" alt="roulette-wheel" id="roulette-wheel" draggable="false" class="roulette-wheel">
+        <img src="{{ url_for('static', filename='roulette_img/table0-36edit.png') }}" alt="0-36" id="table0-36" draggable="false" class="table0-36">
+        <div class="roulette-button-frame">
+          <button class="btn btn-info" style="font-size: 28px;" id="spinbutton">Pörgetés</button>
+        </div>
+        <div>
+            <p id="number1" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: 45%; left: calc(40% + 1px); text-align: center; color: white;" onclick="place_coin('number1')">1</p>
+            <p id="number2" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: black; top: calc(25% + 8px); left: calc(40% + 1px); text-align: center; color: white;" onclick="place_coin('number2')">2</p>
+            <p id="number3" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: 8%; left: calc(40% + 1px); text-align: center; color: white;" onclick="place_coin('number3')">3</p>
+            <p id="number4" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: black; top: 45%; left: calc(45% - 12px); text-align: center; color: white;" onclick="place_coin('number4')">4</p>
+            <p id="number5" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: calc(25% + 8px); left: calc(45% - 12px); text-align: center; color: white;"onclick="place_coin('number5')">5</p>
+            <p id="number6" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: black; top: 8%; left: calc(45% - 12px); text-align: center; color: white;" onclick="place_coin('number6')">6</p>
+            <p id="number7" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: 45%; left: calc(50% - 25px); text-align: center; color: white;" onclick="place_coin('number7')">7</p>
+            <p id="number8" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: black; top: calc(25% + 8px); left: calc(50% - 25px); text-align: center; color: white;" onclick="place_coin('number8')">8</p>
+            <p id="number9" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: 8%; left: calc(50% - 25px); text-align: center; color: white;" onclick="place_coin('number9')">9</p>
+            <p id="number10" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: black; top: 45%; left: calc(55% - 38px); text-align: center; color: white;" onclick="place_coin('number10')">10</p>
+            <p id="number11" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: black; top: calc(25% + 8px); left: calc(55% - 38px); text-align: center; color: white;" onclick="place_coin('number11')">11</p>
+            <p id="number12" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: 8%; left: calc(55% - 38px); text-align: center; color: white;" onclick="place_coin('number12')">12</p>
+            <p id="number13" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: black; top: 45%; left: calc(60% - 51px); text-align: center; color: white;" onclick="place_coin('number13')">13</p>
+            <p id="number14" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: calc(25% + 8px); left: calc(60% - 51px); text-align: center; color: white;" onclick="place_coin('number14')">14</p>
+            <p id="number15" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: black; top: 8%; left: calc(60% - 51px); text-align: center; color: white;" onclick="place_coin('number15')">15</p>
+            <p id="number16" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: 45%; left: calc(65% - 65px); text-align: center; color: white;" onclick="place_coin('number16')">16</p>
+            <p id="number17" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: black; top: calc(25% + 8px); left: calc(65% - 65px); text-align: center; color: white;" onclick="place_coin('number17')">17</p>
+            <p id="number18" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: 8%; left: calc(65% - 65px); text-align: center; color: white;" onclick="place_coin('number18')">18</p>
+            <p id="number19" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: black; top: 45%; left: calc(70% - 75px); text-align: center; color: white;" onclick="place_coin('number19')">19</p>
+            <p id="number20" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: black; top: calc(25% + 8px); left: calc(70% - 75px); text-align: center; color: white;" onclick="place_coin('number20')">20</p>
+            <p id="number21" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: 8%; left: calc(70% - 75px); text-align: center; color: white;" onclick="place_coin('number21')">21</p>
+            <p id="number22" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: black; top: 45%; left: calc(75% - 90px); text-align: center; color: white;" onclick="place_coin('number22')">22</p>
+            <p id="number23" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: calc(25% + 8px); left: calc(75% - 90px); text-align: center; color: white;" onclick="place_coin('number23')">23</p>
+            <p id="number24" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: black; top: 8%; left: calc(75% - 90px); text-align: center; color: white;" onclick="place_coin('number24')">24</p>
+            <p id="number25" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: 45%; left: calc(80% - 103px); text-align: center; color: white;" onclick="place_coin('number25')">25</p>
+            <p id="number26" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: black; top: calc(25% + 8px); left: calc(80% - 103px); text-align: center; color: white;" onclick="place_coin('number26')">26</p>
+            <p id="number27" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: 8%; left: calc(80% - 103px); text-align: center; color: white;" onclick="place_coin('number27')">27</p>
+            <p id="number28" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: 45%; left: calc(85% - 115px); text-align: center; color: white;" onclick="place_coin('number28')">28</p>
+            <p id="number29" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: black; top: calc(25% + 8px); left: calc(85% - 115px); text-align: center; color: white;" onclick="place_coin('number29')">29</p>
+            <p id="number30" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: 8%; left: calc(85% - 115px); text-align: center; color: white;" onclick="place_coin('number30')">30</p>
+            <p id="number31" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: black; top: 45%; left: calc(90% - 127px); text-align: center; color: white;" onclick="place_coin('number31')">31</p>
+            <p id="number32" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: calc(25% + 8px); left: calc(90% - 127px); text-align: center; color: white;" onclick="place_coin('number32')">32</p>
+            <p id="number33" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: black; top: 8%; left: calc(90% - 127px); text-align: center; color: white;" onclick="place_coin('number33')">33</p>
+            <p id="number34" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: 45%; left: calc(95% - 140px); text-align: center; color: white;" onclick="place_coin('number34')">34</p>
+            <p id="number35" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: black; top: calc(25% + 8px); left: calc(95% - 140px); text-align: center; color: white;" onclick="place_coin('number35')">35</p>
+            <p id="number36" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: 8%; left: calc(95% - 140px); text-align: center; color: white;" onclick="place_coin('number36')">36</p>
+        </div>
+      </div>
+      {% if current_user.is_authenticated %}
+        <img src="{{ url_for('static', filename='roulette_img/10_coin.png')}}" alt="10coin" id="coin10" draggable="false" onclick="coin_active('coin10')" class="coin10" name="10">
+        <img src="{{ url_for('static', filename='roulette_img/25_coin.png')}}" alt="25coin" id="coin25" draggable="false" class="coin25" onclick="coin_active('coin25')" name="25">
+        <img src="{{ url_for('static', filename='roulette_img/50_coin.png')}}" alt="50coin" id="coin50" draggable="false" class="coin50" onclick="coin_active('coin50')" name="50">
+        <img src="{{ url_for('static', filename='roulette_img/100_coin.png')}}" alt="100coin" id="coin100" draggable="false" class="coin100" onclick="coin_active('coin100')" name="100">
+        <img src="{{ url_for('static', filename='roulette_img/500_coin.png')}}" alt="500coin" id="coin500" draggable="false" class="coin500" onclick="coin_active('coin500')" name="500">
+      {% endif %}
+
+
+
+
+    <script src="{{url_for('static', filename='JS/roulette.js') }}">
+      document.getElementById("roulette-background").addEventListener("contextmenu", function(e) {
+        e.preventDefault();
+      })
+      document.getElementById("roulette-wheel").addEventListener("contextmenu", function(e) {
+        e.preventDefault();
+      });
+      document.getElementById("table0-36").addEventListener("contextmenu", function(e) {
+        e.preventDefault();
+      });
+      document.getElementById("coin10").addEventListener("contextmenu", function(e) {
+        e.preventDefault();
+      });
+      document.getElementById("coin25").addEventListener("contextmenu", function(e) {
+        e.preventDefault();
+      });
+      document.getElementById("coin50").addEventListener("contextmenu", function(e) {
+        e.preventDefault();
+      });
+      document.getElementById("coin100").addEventListener("contextmenu", function(e) {
+        e.preventDefault();
+      });
+      document.getElementById("coin500").addEventListener("contextmenu", function(e) {
+        e.preventDefault();
+      });
+    </script>
+
+
+{% endblock content %}

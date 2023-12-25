@@ -1,26 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Üdvözlünk!</title>
     <style>
         header {
-            color: white;
-            font-size: 32px;
+            color: black;
+            font-size: 28px;
         }
 
         p {
-            color: white;
-            font-size: 26px;
+            color: black;
+            font-size: 20px;
         }
     </style>
 </head>
-<body style="background-color: #403d45;">
+<body>
     <header>Kedves {{ name }}</header>
 
     <main class="content">
         <p class="content-text">Köszönjük, hogy regisztrált a <a href="http://127.0.0.1:5000">weboldalunkon</a>!</p>
+        <p class="content-text">Sok szerencsét kívánunk és jó játékot!</p>
+        <p class="content-text">Jelenlegi játékaink:</p>
+        <ul>
+            <li><a href="http://127.0.0.1:5000/roulette">Roulette</a></li>
+            <li><a href="http://127.0.0.1:5000/black_jack">BlackJack</a></li>
+        </ul>
     </main>
 </body>
 </html>

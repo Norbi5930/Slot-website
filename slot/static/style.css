@@ -69,6 +69,23 @@
     border-radius: 10px;
 }
 
+.register-show-frame {
+    position: absolute;
+    top: calc(40% - 10px);
+    left: 58%;
+}
+
+.register-show-active {
+    font-size: 28px;
+    user-select: none;
+}
+
+.register-show-inactive {
+    font-size: 28px;
+    user-select: none;
+    text-decoration: line-through;
+}
+
 .register-password:focus {
     box-shadow: 0 0 30px rgba(0, 0, 0, 1);
 }
@@ -456,4 +473,107 @@
 
 .upload-submit:active {
     margin-left: 3px;
+}
+
+.roulette-table {
+    position: absolute;
+    width: calc(100% - 250px);
+    height: 50%;
+    background-color: #0d910f;
+    top: 25%;
+    left: 5%;
+    border-radius: 20px;
+    user-select: none;
+}
+
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+    50% { transform: rotate(180deg); }
+    
+}
+
+.roulette-wheel {
+    position: absolute;
+    top: calc(15% - 10px);
+    left: 5%;
+    animation: spin 10s linear infinite;
+    transition: transform 0.5s ease-in-out;
+    user-select: none;
+}
+
+.roulette-wheel-spin {
+    animation: spin 1s linear infinite;
+}
+
+.coin10 {
+    position: absolute;
+    left: calc(50% - 300px);
+    top: 75%;
+    user-select: none;
+    border-radius: 50%;
+}
+
+.coin25 {
+    position: absolute;
+    left: calc(50% - 150px);
+    top: calc(75% + 5px);
+    user-select: none;
+    border-radius: 50%;
+}
+
+.coin50 {
+    position: absolute;
+    left: 50%;
+    top: 75%;
+    user-select: none;
+    border-radius: 50%;
+}
+
+.coin100 {
+    position: absolute;
+    left: calc(50% + 150px);
+    top: 75%;
+    user-select: none;
+    border-radius: 50%;
+}
+
+.coin500 {
+    position: absolute;
+    left: calc(50% + 300px);
+    top: 75%;
+    user-select: none;
+    border-radius: 50%;
+}
+
+.table0-36 {
+    position: absolute;
+    left: calc(35% + 2px);
+    user-select: none;
+}
+
+
+.roulette-numbers {
+    font-size: 38px;
+    transform: rotate(-90deg);
+}
+
+
+.roulette-button-frame {
+    position: absolute;
+    top: 85%;
+    left: 60%;
+}
+
+.roulette-button {
+    font-size: 28px;
+    border-radius: 4px;
+}
+
+
+.roulette-coin-active {
+    overflow: hidden;
+    opacity: 0.8;
+    transform: scale(0.8);
 }

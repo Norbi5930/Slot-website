@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, EmailField, SubmitField, IntegerField
+from wtforms import StringField, PasswordField, EmailField, SubmitField, IntegerField, BooleanField
 from wtforms.validators import Length, Email, EqualTo, InputRequired, ValidationError
 
 from slot import bcrypt
@@ -8,7 +8,7 @@ from slot.models import User
 class RegisterForm(FlaskForm):
     username = StringField(render_kw={"placeholder": "Felhasználónév"}, validators=[InputRequired(), Length(min=3)])
     email = EmailField(render_kw={"placeholder": "E-mail"}, validators=[InputRequired(), Email(message="A megadott formátum nem megfelelő!")])
-    password = PasswordField(render_kw={"placeholder": "Jelszó"}, validators=[InputRequired()])
+    password = PasswordField(render_kw={"placeholder": "Jelszó", "id": "password"}, validators=[InputRequired()])
     password_confirm = PasswordField(render_kw={"placeholder": "Jelszó újra"}, validators=[InputRequired(), EqualTo("password")])
     submit = SubmitField("Regisztráció")
 
@@ -64,3 +64,7 @@ class WithdrawForm(FlaskForm):
     card_number = StringField(render_kw={"placeholder": "Kártyaszám"}, validators=[InputRequired()])
     cvc_code = IntegerField(render_kw={"placeholder": "CVC"})
     submit = SubmitField("Kifizetés")
+
+
+class RouletteForm(FlaskForm):
+    submit = SubmitField("Pörgetés")

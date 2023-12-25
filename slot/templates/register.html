@@ -3,7 +3,7 @@
 
 
 {% block content %}
-    <img src="{{ url_for('static', filename='lrbackground.gif') }}" alt="background" id="register_background">
+    <img src="{{ url_for('static', filename='lrbackground.gif') }}" alt="background" id="register_background" draggable="false">
     <h2 class="register-title">Regisztrációs felület</h2>
     <form action="" method="post">
         {{ form.hidden_tag() }}
@@ -59,6 +59,9 @@
                 </div>
             {% endif %}
         </div>
+        <div class="register-show-frame">
+            <p class="register-show-inactive" id="show_password" onclick="show_password()">👁️</p>
+        </div>
         <div class="register-password-confirm-frame">
             {{ form.password_confirm(class="register-password-confirm") }}
         </div>
@@ -67,6 +70,21 @@
         </div>
     </form>
 
-
+    <script>
+        const check = document.getElementById("show_password");
+        const password = document.getElementById("password");
+    
+        function show_password() {
+            if (check.classList.contains("register-show-inactive")) {
+                check.classList.remove("register-show-inactive");
+                check.classList.add("register-show-active");
+                password.type = "text";
+            } else {
+                check.classList.remove("register-show-active");
+                check.classList.add("register-show-inactive");
+                password.type = "password";
+            }
+        }
+    </script>
 
 {% endblock content %}

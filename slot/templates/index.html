@@ -27,18 +27,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            {% if current_user.is_authenticated %}
-              <li class="nav-item">
-                  <a class="nav-link" href="">Jelszó váltás</a>
-              </li>
-            {% endif %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Játékok
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#">BlackJack</a></li>
-                    <li><a class="dropdown-item" href="#">Roulette</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('roulette') }}">Roulette</a></li>
                     <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">...</a></li>
                 </ul>
             </li>
@@ -63,8 +58,8 @@
                 </a>
                 <ul class="dropdown-menu" style="transform: translateX(calc(100% - 250px));">
                   <li><a class="dropdown-item" href="{{ url_for('profile', id=current_user.user_id) }}">Profil</a></li>
-                  <li><a class="dropdown-item" href="{{ url_for('settings')}}">Beállítások</a></li>
-                  <li><a class="dropdown-item" href="{{ url_for('logout') }}">Kijelentkezés</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('settings')}}" style="background-color: #058cfa;">Beállítások</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('logout') }}" style="background-color: red;">Kijelentkezés</a></li>
                 </ul>
               </li>
             {% endif %}
