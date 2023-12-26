@@ -12,8 +12,9 @@
       <div class="roulette-table">
         <img src="{{ url_for('static', filename='roulette_img/roulette_wheel.png') }}" alt="roulette-wheel" id="roulette-wheel" draggable="false" class="roulette-wheel">
         <img src="{{ url_for('static', filename='roulette_img/table0-36edit.png') }}" alt="0-36" id="table0-36" draggable="false" class="table0-36">
+        <div class="roulette-timer" id="timer">00:00</div>
         <div class="roulette-button-frame">
-          <button class="btn btn-info" style="font-size: 28px;" id="spinbutton">Pörgetés</button>
+
         </div>
         <div>
             <p id="number1" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: 45%; left: calc(40% + 1px); text-align: center; color: white;" onclick="place_coin('number1')">1</p>

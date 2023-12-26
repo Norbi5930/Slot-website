@@ -507,6 +507,13 @@
     animation: spin 1s linear infinite;
 }
 
+.roulette-timer {
+    position: absolute;
+    font-size: 30px;
+    bottom: 3%;
+    left: 13%;
+}
+
 .coin10 {
     position: absolute;
     left: calc(50% - 300px);
