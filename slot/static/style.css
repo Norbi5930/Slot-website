@@ -86,6 +86,10 @@
     text-decoration: line-through;
 }
 
+.register-show-inactive:hover, .register-show-active:hover {
+    cursor: grab;
+}
+
 .register-password:focus {
     box-shadow: 0 0 30px rgba(0, 0, 0, 1);
 }
@@ -576,6 +580,13 @@
 .roulette-button {
     font-size: 28px;
     border-radius: 4px;
+}
+
+.roulette-balance {
+    position: absolute;
+    font-size: 28px;
+    bottom: 5%;
+    right: 1%;
 }
 
 

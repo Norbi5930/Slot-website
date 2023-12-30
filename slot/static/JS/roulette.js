@@ -1,14 +1,46 @@
-var oldCoin;
-var selected_coin;
-var numbers =[
-  {"money": 100,
-    "selected": 16  
-  }
-];
+/*
+function music() {
+  let audio = document.getElementById("audiomusic");
+  audio.play();
+};
+
+window.addEventListener("DOMContentLoaded", function() {
+  music();
+});
+window.addEventListener("beforeunload", function() {
+  music();
+});
+*/
+
+window.addEventListener("DOMContentLoaded", function() {
+  load_user_data();
+});
+
+function load_user_data() {
+  fetch("api/get_data", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    },
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+
+    document.getElementById("balance").innerHTML = data.balance + "$";
+  })
+  .catch(error => {
+    console.error("Hiba: ", error);
+  });
+};
+
+let oldCoin;
+let selected_coin;
+let numbers = [];
 function coin_active(coinID) {
   selected_coin = document.getElementById(coinID);
   
-  var allCoin = document.querySelectorAll(".coin10, .coin25, .coin50, .coin100, .coin500");
+  let allCoin = document.querySelectorAll(".coin10, .coin25, .coin50, .coin100, .coin500");
   allCoin.forEach(function(current_coin) {
     if (current_coin.classList.contains("roulette-coin-active")) {
       current_coin.classList.remove("roulette-coin-active");
@@ -27,19 +59,19 @@ function coin_active(coinID) {
 
 
 
-var time = 10;
-var timer;
-var displayTimer = document.getElementById("timer")
-var wheel_spinning;
+let time = 60;
+let timer;
+let displayTimer = document.getElementById("timer")
+let wheel_spinning;
 
 
-var storageTime = localStorage.getItem("timerTime");
+let storageTime = localStorage.getItem("timerTime");
 if (storageTime) {
   time = parseInt(storageTime, 10);
 };
 
 
-var isTimerRunning = localStorage.getItem("isTimerRunning");
+let isTimerRunning = localStorage.getItem("isTimerRunning");
 if (isTimerRunning == "true") {
   start_timer();
 };
@@ -51,7 +83,7 @@ function start_timer() {
     if (time == 0) {
       spin_wheel();
       clearInterval(timer);
-      time = 10;
+      time = 60;
     };
     updateTimer();
   }, 1000)
@@ -59,10 +91,10 @@ function start_timer() {
 
 
 function updateTimer() {
-  var minutes = Math.floor(time / 60);
-  var seconds = time % 60;
+  let minutes = Math.floor(time / 60);
+  let seconds = time % 60;
 
-  var formatedtime = (minutes < 10 ? "0": "") + minutes + ":" + (seconds < 10 ? "0": "") + seconds;
+  let formatedtime = (minutes < 10 ? "0": "") + minutes + ":" + (seconds < 10 ? "0": "") + seconds;
 
   displayTimer.textContent = formatedtime;
 
@@ -83,8 +115,19 @@ function spin_wheel() {
     wheel_spinning = true;
     setTimeout(stop_spin_wheel, 4000);
   };
-};
+  let generate_number = Math.floor(Math.random() * 37);
 
+  if (numbers.length > 0) {
+    numbers.forEach(function(item) {
+      if (item.selected == generate_number) {
+        console.log("Gratulálunk, a te számod nyert!", generate_number);
+      } else {
+        console.log("Sajnáljuk, nem nyert a megrakott száma(i)!", generate_number);
+      };
+    });
+  };
+
+};
 
 function stop_spin_wheel() {
   if (wheel.classList.contains("roulette-wheel-spin")) {
@@ -92,16 +135,22 @@ function stop_spin_wheel() {
     wheel_spinning = false;
     start_timer();
   };
+  numbers = [];
+  generate_number = null;
 };
 
 
 
 function place_coin(placeID) {
-  var place = document.getElementById(placeID);
+  let place = document.getElementById(placeID);
 
   if (selected_coin && !wheel_spinning) {
-    var generate_number = Math.floor(Math.random() * 37);
-    console.log(generate_number);
+    let number = place.textContent;
+    let coin = selected_coin.name
+    numbers.push({
+      "money": Number(coin),
+      "selected": Number(number)
+    });
   } else {
     alert("Jelenleg nem tehetsz tétet!");
   }

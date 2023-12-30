@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash, abort, request
+from flask import render_template, redirect, url_for, flash, abort, request, jsonify
 from flask_login import login_user, logout_user, current_user, login_required
 
 from slot import app, db, bcrypt
@@ -144,6 +144,14 @@ def roulette():
     return render_template("roulette.html", title="Roulette", form=form)
 
 
+
+@app.route("/api/get_data", methods=["GET"])
+def get_data():
+    user_data = {
+        "balance": current_user.balance
+    }
+
+    return jsonify(user_data)
 
 @app.errorhandler(404)
 def error_page(error):
