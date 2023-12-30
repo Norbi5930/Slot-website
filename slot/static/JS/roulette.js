@@ -27,7 +27,8 @@ function load_user_data() {
   .then(data => {
     console.log(data);
 
-    document.getElementById("balance").innerHTML = data.balance;
+    document.getElementById("balance").textContent = data.balance + "$";
+    document.getElementById("balance").name = data.balance;
   })
   .catch(error => {
     console.error("Hiba: ", error);
@@ -124,7 +125,7 @@ function spin_wheel() {
     wheel_spinning = true;
     setTimeout(stop_spin_wheel, 4000);
   };
-  generate_number = 7//Math.floor(Math.random() * 37);
+  generate_number = Math.floor(Math.random() * 37);
   let win = false;
   let win_money = 0;
 
@@ -183,7 +184,7 @@ function stop_spin_wheel() {
 
 function place_coin(placeID) {
   let place = document.getElementById(placeID);
-  let balance = document.getElementById("balance").textContent;
+  let balance = document.getElementById("balance").name;
   let coin = selected_coin.name;
   let number = place.textContent;
 
@@ -206,8 +207,10 @@ function place_coin(placeID) {
             "selected": Number(number)
           })
           localStorage.setItem("numbers", JSON.stringify(numbers));
-          document.getElementById("balance").innerHTML = data.new_balance;
-          document.getElementById("user-balance").innerHTML = data.new_balance;
+          document.getElementById("balance").textContent = data.new_balance + "$";
+          document.getElementById("balance").name = data.new_balance;
+          document.getElementById("user-balance").textContent = data.new_balance + "$";
+          document.getElementById("user-balance").name = data.new_balance;
         };
       })
       .catch(error => {

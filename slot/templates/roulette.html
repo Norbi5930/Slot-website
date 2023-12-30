@@ -12,7 +12,7 @@
       <div class="roulette-table">
         <img src="{{ url_for('static', filename='roulette_img/roulette_wheel.png') }}" alt="roulette-wheel" id="roulette-wheel" draggable="false" class="roulette-wheel">
         <img src="{{ url_for('static', filename='roulette_img/table0-36edit.png') }}" alt="0-36" id="table0-36" draggable="false" class="table0-36">
-        <span class="roulette-balance" id="balance"></span>
+        <span class="roulette-balance" id="balance" name="{{ current_user.balance }}"></span>
         <div class="roulette-timer" id="timer">00:00</div>
         <div class="roulette-button-frame">
         <audio id="audiomusic" src="{{ url_for('static', filename='Music/roulette_music.mp3') }}"></audio>
