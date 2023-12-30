@@ -27,7 +27,7 @@ function load_user_data() {
   .then(data => {
     console.log(data);
 
-    document.getElementById("balance").innerHTML = data.balance + "$";
+    document.getElementById("balance").innerHTML = data.balance;
   })
   .catch(error => {
     console.error("Hiba: ", error);
@@ -37,6 +37,15 @@ function load_user_data() {
 let oldCoin;
 let selected_coin;
 let numbers = [];
+
+let local_numbers = localStorage.getItem("numbers");
+if (local_numbers) {
+  try {
+    numbers = JSON.parse(local_numbers);
+  } catch (error) {
+    console.error("Hiba az adatok betöltése során: ", error)
+  }
+}
 function coin_active(coinID) {
   selected_coin = document.getElementById(coinID);
   
@@ -108,25 +117,54 @@ window.addEventListener("beforeunload", function() {
 
 const wheel = document.getElementById("roulette-wheel");
 
-
+let generate_number;
 function spin_wheel() {
   if (wheel.classList.contains("roulette-wheel-spin")) {} else {
     wheel.classList.add("roulette-wheel-spin");
     wheel_spinning = true;
     setTimeout(stop_spin_wheel, 4000);
   };
-  let generate_number = Math.floor(Math.random() * 37);
+  generate_number = 7//Math.floor(Math.random() * 37);
+  let win = false;
+  let win_money = 0;
 
   if (numbers.length > 0) {
     numbers.forEach(function(item) {
       if (item.selected == generate_number) {
-        console.log("Gratulálunk, a te számod nyert!", generate_number);
-      } else {
-        console.log("Sajnáljuk, nem nyert a megrakott száma(i)!", generate_number);
-      };
+        win = true;
+        win_money += item.money * 36;
+      }
     });
+    if (!win) {
+      alert("Sajnáljuk, nem nyert!")
+    } else {
+      roulette_win(win_money);
+    }
   };
+};
 
+function roulette_win(money) {
+  fetch("api/place/win", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      money: money
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      location.reload()
+      alert("Gratulálunk, NYERT. Az összeget az egyenlegéhez írtuk!");
+    } else {
+      alert("Az összeget nem sikerült az egyenlegéhez írni, kérjük vegye fel velünk a kapcsolatot!");
+    };
+  })
+  .catch(error => {
+    console.error("Hiba: ", error);
+  });
 };
 
 function stop_spin_wheel() {
@@ -135,24 +173,51 @@ function stop_spin_wheel() {
     wheel_spinning = false;
     start_timer();
   };
+  win = false;
   numbers = [];
   generate_number = null;
+  localStorage.setItem("numbers", numbers);
 };
 
 
 
 function place_coin(placeID) {
   let place = document.getElementById(placeID);
+  let balance = document.getElementById("balance").textContent;
+  let coin = selected_coin.name;
+  let number = place.textContent;
 
   if (selected_coin && !wheel_spinning) {
-    let number = place.textContent;
-    let coin = selected_coin.name
-    numbers.push({
-      "money": Number(coin),
-      "selected": Number(number)
-    });
+    if (Number(balance) >= Number(coin)) {
+      fetch("api/place_coin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          money: Number(coin)
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          numbers.push({
+            "money": Number(coin),
+            "selected": Number(number)
+          })
+          localStorage.setItem("numbers", JSON.stringify(numbers));
+          document.getElementById("balance").innerHTML = data.new_balance;
+          document.getElementById("user-balance").innerHTML = data.new_balance;
+        };
+      })
+      .catch(error => {
+        console.error("Hiba: ", error);
+      });
+    } else {
+      alert("Nincs elegendő pénz mennyiséged!")
+    };
   } else {
-    alert("Jelenleg nem tehetsz tétet!");
-  }
-}
+    alert("Jelenleg nem rakhatsz tétet!")
+  };
+};
 

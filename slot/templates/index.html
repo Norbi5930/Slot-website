@@ -49,7 +49,7 @@
             {% else %}
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('profile', id=current_user.user_id) }}" style="font-size: 22px; font-family: cursive; user-select: none;">{{ current_user.balance }}$</a>
+                  <a class="nav-link" id="user-balance" href="{{ url_for('profile', id=current_user.user_id) }}" style="font-size: 22px; font-family: cursive; user-select: none;">{{ current_user.balance }}$</a>
                 </li>
               </ul>
               <li class="nav-item dropdown">

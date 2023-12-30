@@ -153,6 +153,33 @@ def get_data():
 
     return jsonify(user_data)
 
+@app.route("/api/place_coin", methods=["POST"])
+def place_coin():
+    try:
+        data = request.get_json()
+        amount = data.get("money")
+
+        current_user.balance -= int(amount)
+        db.session.commit()
+
+        return jsonify({"success": True, "new_balance": current_user.balance})
+    except Exception as error:
+        return jsonify({"success": False})
+    
+@app.route("/api/place/win", methods=["POST"])
+def roulette_win():
+    try:
+        data = request.get_json()
+        amount = data.get("money")
+
+        current_user.balance += int(amount)
+        db.session.commit()
+
+        return jsonify({"success": True, "new_balance": current_user.balance})
+    except Exception as error:
+        print(error)
+        return jsonify({"success": False})
+
 @app.errorhandler(404)
 def error_page(error):
     status_code = getattr(error, "code", 500)
