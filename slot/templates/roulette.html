@@ -17,9 +17,6 @@
         <div id="winner-number-frame" class="roulette-winner-number-frame">
           <div id="winner-number" class="roulette-winner-number">10</div>
         </div>
-        <div class="roulette-button-frame">
-        <audio id="audiomusic" src="{{ url_for('static', filename='Music/roulette_music.mp3') }}"></audio>
-        </div>
         <div>
             <p id="number1" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: 45%; left: calc(40% + 1px); text-align: center; color: white;" onclick="place_coin('number1')">1</p>
             <p id="number2" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: black; top: calc(25% + 8px); left: calc(40% + 1px); text-align: center; color: white;" onclick="place_coin('number2')">2</p>
@@ -68,7 +65,16 @@
       {% endif %}
 
 
+      <div class="alert alert-warning" role="alert" id="balance-alert" style="display: none;">
+        <h4 class="alert-heading">Figyelem!</h4>
+        <p>Nincs elegendő egyenleged!</p>
+      </div>
 
+      
+      <div class="alert alert-warning" role="alert" id="place-alert" style="display: none;">
+        <h4 class="alert-heading">Figyelem!</h4>
+        <p>Jelenleg nem rakhatsz tétet!</p>
+      </div>
 
     <script src="{{url_for('static', filename='JS/roulette.js') }}">
       document.getElementById("roulette-background").addEventListener("contextmenu", function(e) {

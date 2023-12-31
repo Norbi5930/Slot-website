@@ -1,16 +1,3 @@
-/*
-function music() {
-  let audio = document.getElementById("audiomusic");
-  audio.play();
-};
-
-window.addEventListener("DOMContentLoaded", function() {
-  music();
-});
-window.addEventListener("beforeunload", function() {
-  music();
-});
-*/
 
 window.addEventListener("DOMContentLoaded", function() {
   load_user_data();
@@ -142,7 +129,10 @@ function spin_wheel() {
   } else if (red.includes(generate_number)) {
     html_number_frame.style.backgroundColor = "red";
     html_number.style.color = "black";
-  };
+  } else {
+    html_number_frame.style.backgroundColor = "darkgreen";
+    html_number.style.color = "black";
+  }
   let win = false;
   let win_money = 0;
   localStorage.setItem("winner-number", generate_number);
@@ -155,7 +145,7 @@ function spin_wheel() {
       }
     });
     if (!win) {
-      alert("Sajnáljuk, nem nyert!")
+      
     } else {
       roulette_win(win_money);
     }
@@ -176,9 +166,8 @@ function roulette_win(money) {
   .then(data => {
     if (data.success) {
       location.reload()
-      alert("Gratulálunk, NYERT. Az összeget az egyenlegéhez írtuk!");
     } else {
-      alert("Az összeget nem sikerült az egyenlegéhez írni, kérjük vegye fel velünk a kapcsolatot!");
+
     };
   })
   .catch(error => {
@@ -235,10 +224,18 @@ function place_coin(placeID) {
         console.error("Hiba: ", error);
       });
     } else {
-      alert("Nincs elegendő pénz mennyiséged!")
+      let alert = document.getElementById("balance-alert");
+      alert.style.display = "block";
+      setTimeout(function() {
+        alert.style.display = "none";
+      }, 3000);
     };
   } else {
-    alert("Jelenleg nem rakhatsz tétet!")
+    let alert = document.getElementById("place-alert");
+    alert.style.display = "block";
+    setTimeout(function() {
+      alert.style.display = "none";
+    }, 3000);
   };
 };
 
