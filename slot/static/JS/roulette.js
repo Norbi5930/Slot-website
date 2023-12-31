@@ -47,6 +47,11 @@ if (local_numbers) {
     console.error("Hiba az adatok betöltése során: ", error)
   }
 }
+
+let winner_number = localStorage.getItem("winner-number");
+if (winner_number) {
+  document.getElementById("winner-number").textContent = parseInt(winner_number);
+}
 function coin_active(coinID) {
   selected_coin = document.getElementById(coinID);
   
@@ -125,9 +130,22 @@ function spin_wheel() {
     wheel_spinning = true;
     setTimeout(stop_spin_wheel, 4000);
   };
+  let black = [2, 4, 6, 8, 10, 11, 13, 15, 17, 19, 20, 22, 24, 26, 29, 31, 33, 35];
+  let red = [1, 3, 5, 7, 9, 12, 14, 16, 18, 21, 23, 25, 27, 28, 30, 32, 34, 36]
   generate_number = Math.floor(Math.random() * 37);
+  html_number_frame = document.getElementById("winner-number-frame")
+  html_number = document.getElementById("winner-number");
+  html_number.textContent = generate_number;
+  if (black.includes(generate_number)) {
+    html_number_frame.style.backgroundColor = "black";
+    html_number.style.color = "white";
+  } else if (red.includes(generate_number)) {
+    html_number_frame.style.backgroundColor = "red";
+    html_number.style.color = "black";
+  };
   let win = false;
   let win_money = 0;
+  localStorage.setItem("winner-number", generate_number);
 
   if (numbers.length > 0) {
     numbers.forEach(function(item) {

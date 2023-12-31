@@ -589,6 +589,25 @@
     right: 1%;
 }
 
+.roulette-winner-number-frame {
+    position: absolute;
+    top: 40%;
+    left: 30%;
+    width: 50px;
+    height: 70px;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.roulette-winner-number {
+    font-size: 32px;
+    text-align: center;
+    color: white;
+}
+
 
 .roulette-coin-active {
     overflow: hidden;
