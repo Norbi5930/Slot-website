@@ -63,7 +63,7 @@ function coin_active(coinID) {
 
 let time = 60;
 let timer;
-let displayTimer = document.getElementById("timer")
+const displayTimer = document.getElementById("timer")
 let wheel_spinning;
 
 
@@ -73,7 +73,7 @@ if (storageTime) {
 };
 
 
-let isTimerRunning = localStorage.getItem("isTimerRunning");
+const isTimerRunning = localStorage.getItem("isTimerRunning");
 if (isTimerRunning == "true") {
   start_timer();
 };
