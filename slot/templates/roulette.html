@@ -15,7 +15,7 @@
         <span class="roulette-balance" id="balance" name="{{ current_user.balance }}"></span>
         <div class="roulette-timer" id="timer">00:00</div>
         <div id="winner-number-frame" class="roulette-winner-number-frame">
-          <div id="winner-number" class="roulette-winner-number">10</div>
+          <div id="winner-number" class="roulette-winner-number"></div>
         </div>
         <div>
             <p id="number1" class="roulette-numbers" style="position: absolute; width: 86px; height: 65px; background-color: red; top: 45%; left: calc(40% + 1px); text-align: center; color: white;" onclick="place_coin('number1')">1</p>
@@ -74,6 +74,11 @@
       <div class="alert alert-warning" role="alert" id="place-alert" style="display: none;">
         <h4 class="alert-heading">Figyelem!</h4>
         <p>Jelenleg nem rakhatsz tétet!</p>
+      </div>
+
+      <div class="alert alert-danger" role="alert" id="alert" style="display: none;">
+        <h4 class="alert-heading">Figyelem!</h4>
+        <p>Amennyiben tétet rakott az asztalra, kérjük NE hagyja el az oldalt, előfordulhat, hogy elveszíti a feltett pénzt!</p>
       </div>
 
     <script src="{{url_for('static', filename='JS/roulette.js') }}">

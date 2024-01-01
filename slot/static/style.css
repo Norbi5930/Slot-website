@@ -407,6 +407,14 @@
     text-align: center;
 }
 
+.balance-withdraw-button:hover {
+    background-color: #0d910f;
+}
+
+.balance-withdraw-button:active {
+    margin-left: 3px;
+}
+
 .upload-title {
     position: absolute;
     width: 100%;

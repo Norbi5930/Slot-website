@@ -1,6 +1,11 @@
 
 window.addEventListener("DOMContentLoaded", function() {
   load_user_data();
+  const alert = document.getElementById("alert");
+  alert.style.display = "block";
+  this.setTimeout(function() {
+    alert.style.display = "none";
+  }, 5000);
 });
 
 function load_user_data() {
@@ -38,6 +43,7 @@ if (local_numbers) {
 let winner_number = localStorage.getItem("winner-number");
 if (winner_number) {
   document.getElementById("winner-number").textContent = parseInt(winner_number);
+  number_control(parseInt(winner_number));
 }
 function coin_active(coinID) {
   selected_coin = document.getElementById(coinID);
@@ -72,7 +78,6 @@ if (storageTime) {
   time = parseInt(storageTime, 10);
 };
 
-
 const isTimerRunning = localStorage.getItem("isTimerRunning");
 if (isTimerRunning == "true") {
   start_timer();
@@ -82,7 +87,7 @@ function start_timer() {
     timer = setInterval(function() {
     time--;
 
-    if (time == 0) {
+    if (time <= 0) {
       spin_wheel();
       clearInterval(timer);
       time = 60;
@@ -117,22 +122,7 @@ function spin_wheel() {
     wheel_spinning = true;
     setTimeout(stop_spin_wheel, 4000);
   };
-  let black = [2, 4, 6, 8, 10, 11, 13, 15, 17, 19, 20, 22, 24, 26, 29, 31, 33, 35];
-  let red = [1, 3, 5, 7, 9, 12, 14, 16, 18, 21, 23, 25, 27, 28, 30, 32, 34, 36]
   generate_number = Math.floor(Math.random() * 37);
-  html_number_frame = document.getElementById("winner-number-frame")
-  html_number = document.getElementById("winner-number");
-  html_number.textContent = generate_number;
-  if (black.includes(generate_number)) {
-    html_number_frame.style.backgroundColor = "black";
-    html_number.style.color = "white";
-  } else if (red.includes(generate_number)) {
-    html_number_frame.style.backgroundColor = "red";
-    html_number.style.color = "black";
-  } else {
-    html_number_frame.style.backgroundColor = "darkgreen";
-    html_number.style.color = "black";
-  }
   let win = false;
   let win_money = 0;
   localStorage.setItem("winner-number", generate_number);
@@ -151,6 +141,25 @@ function spin_wheel() {
     }
   };
 };
+
+function number_control(number) {
+  let black = [2, 4, 6, 8, 10, 11, 13, 15, 17, 19, 20, 22, 24, 26, 29, 31, 33, 35];
+  let red = [1, 3, 5, 7, 9, 12, 14, 16, 18, 21, 23, 25, 27, 28, 30, 32, 34, 36];
+
+  html_number_frame = document.getElementById("winner-number-frame")
+  html_number = document.getElementById("winner-number");
+  html_number.textContent = number;
+  if (black.includes(number)) {
+    html_number_frame.style.backgroundColor = "black";
+    html_number.style.color = "white";
+  } else if (red.includes(number)) {
+    html_number_frame.style.backgroundColor = "red";
+    html_number.style.color = "black";
+  } else {
+    html_number_frame.style.backgroundColor = "darkgreen";
+    html_number.style.color = "black";
+  };
+}
 
 function roulette_win(money) {
   fetch("api/place/win", {
@@ -179,6 +188,7 @@ function stop_spin_wheel() {
   if (wheel.classList.contains("roulette-wheel-spin")) {
     wheel.classList.remove("roulette-wheel-spin");
     wheel_spinning = false;
+    number_control(generate_number);
     start_timer();
   };
   win = false;
@@ -224,14 +234,14 @@ function place_coin(placeID) {
         console.error("Hiba: ", error);
       });
     } else {
-      let alert = document.getElementById("balance-alert");
+      const alert = document.getElementById("balance-alert");
       alert.style.display = "block";
       setTimeout(function() {
         alert.style.display = "none";
       }, 3000);
     };
   } else {
-    let alert = document.getElementById("place-alert");
+    const alert = document.getElementById("place-alert");
     alert.style.display = "block";
     setTimeout(function() {
       alert.style.display = "none";
@@ -239,3 +249,23 @@ function place_coin(placeID) {
   };
 };
 
+
+
+const allPlace = document.querySelectorAll(".roulette-numbers");
+allPlace.forEach(function(place) {
+  place.addEventListener("mouseenter", function() {
+    place.style.opacity = 0.7;
+  });
+  place.addEventListener("mouseleave", function() {
+    place.style.opacity = 1;
+  });
+})
+
+window.addEventListener("beforeunload", function(event) {
+  if (numbers.length > 0 || wheel_spinning) {
+    const message = "Figyelem! Ha elhagyja az oldalt, fenn áll a lehetősége, hogy elveszíti a felrakott összeget!";
+
+    (event || window.event).returnValue = message;
+    return message;
+  };
+});
