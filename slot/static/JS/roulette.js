@@ -8,6 +8,7 @@ window.addEventListener("DOMContentLoaded", function() {
   }, 5000);
 });
 
+
 function load_user_data() {
   fetch("api/get_data", {
     method: "GET",
@@ -122,7 +123,7 @@ function spin_wheel() {
     wheel_spinning = true;
     setTimeout(stop_spin_wheel, 4000);
   };
-  generate_number = Math.floor(Math.random() * 37);
+  generate_number = 7 //Math.floor(Math.random() * 37);
   let win = false;
   let win_money = 0;
   localStorage.setItem("winner-number", generate_number);
@@ -174,7 +175,6 @@ function roulette_win(money) {
   .then(response => response.json())
   .then(data => {
     if (data.success) {
-      location.reload()
     } else {
 
     };
@@ -189,6 +189,7 @@ function stop_spin_wheel() {
     wheel.classList.remove("roulette-wheel-spin");
     wheel_spinning = false;
     number_control(generate_number);
+    location.reload()
     start_timer();
   };
   win = false;
@@ -261,11 +262,3 @@ allPlace.forEach(function(place) {
   });
 })
 
-window.addEventListener("beforeunload", function(event) {
-  if (numbers.length > 0 || wheel_spinning) {
-    const message = "Figyelem! Ha elhagyja az oldalt, fenn áll a lehetősége, hogy elveszíti a felrakott összeget!";
-
-    (event || window.event).returnValue = message;
-    return message;
-  };
-});
